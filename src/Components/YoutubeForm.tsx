@@ -4,6 +4,10 @@ type FormValues = {
   username: string;
   email: string;
   channel: string;
+  social: {
+    twitter: string;
+    facebook: string;
+  };
 };
 
 export const YouTubeForm = () => {
@@ -16,29 +20,16 @@ export const YouTubeForm = () => {
       username: "aamir",
       email: "aamir@gmail.com",
       channel: "test",
+      social: {
+        twitter: "",
+        facebook: "",
+      },
     },
   });
-
-  //we can also set data by calling api
-  //   const form = useForm<FormValues>({
-  //     defaultValues: async () => {
-  //       const response = await fetch(
-  //         `https://jsonplaceholder.typicode.com/users/1`
-  //       );
-  //       const data = await response.json();
-  //       return {
-  //         username: "aamir",
-  //         email: data.email,
-  //         channel: "test",
-  //       };
-  //     },
-  //   });
 
   const { register, control, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  //Here is list of all method and property that what exactly "register" method returns us
-  //const {name, onBlur, onChange, ref}  = register("username");
   const onSubmit = (data: FormValues) => {
     console.log("formData", data);
   };
@@ -107,6 +98,16 @@ export const YouTubeForm = () => {
           />
 
           <p className="error">{errors.channel?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="twitter">Twitter</label>
+          <input type="text" id="twitter" {...register("social.twitter")} />
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook</label>
+          <input type="text" id="facebook" {...register("social.facebook")} />
         </div>
 
         <button>Submit</button>
