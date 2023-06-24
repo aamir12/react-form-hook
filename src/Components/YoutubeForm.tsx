@@ -8,6 +8,7 @@ type FormValues = {
     twitter: string;
     facebook: string;
   };
+  phoneNumbers: string[];
 };
 
 export const YouTubeForm = () => {
@@ -24,6 +25,7 @@ export const YouTubeForm = () => {
         twitter: "",
         facebook: "",
       },
+      phoneNumbers: ["", ""],
     },
   });
 
@@ -102,12 +104,49 @@ export const YouTubeForm = () => {
 
         <div className="form-control">
           <label htmlFor="twitter">Twitter</label>
-          <input type="text" id="twitter" {...register("social.twitter")} />
+          <input
+            type="text"
+            id="twitter"
+            {...register("social.twitter", {
+              required: "Twitter link is required",
+            })}
+          />
+          <p className="error">{errors?.social?.twitter?.message}</p>
         </div>
 
         <div className="form-control">
           <label htmlFor="facebook">Facebook</label>
-          <input type="text" id="facebook" {...register("social.facebook")} />
+          <input
+            type="text"
+            id="facebook"
+            {...register("social.facebook", {
+              required: "Facebook link is required",
+            })}
+          />
+          <p className="error">{errors?.social?.facebook?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="primaryPhone">Primary Phone number</label>
+          <input
+            type="text"
+            id="primaryPhone"
+            {...register("phoneNumbers.0", {
+              required: "Primary Phone is required",
+            })}
+          />
+          <p className="error">{errors?.phoneNumbers?.[0]?.message}</p>
+        </div>
+        <div className="form-control">
+          <label htmlFor="secondaryPhone">Secondary Phone number</label>
+          <input
+            type="text"
+            id="secondaryPhone"
+            {...register("phoneNumbers.1", {
+              required: "Secondary phone is required",
+            })}
+          />
+          <p className="error">{errors?.phoneNumbers?.[1]?.message}</p>
         </div>
 
         <button>Submit</button>
