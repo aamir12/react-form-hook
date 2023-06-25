@@ -57,13 +57,13 @@ export const YouTubeForm = () => {
   //const watchForm = watch();
 
   //it does not cause re-render
-  useEffect(() => {
-    const subscription = watch((value) => {
-      console.log(value);
-    });
+  // useEffect(() => {
+  //   const subscription = watch((value) => {
+  //     console.log(value);
+  //   });
 
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  //   return () => subscription.unsubscribe();
+  // }, [watch]);
 
   renderCount++;
   return (
