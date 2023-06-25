@@ -10,9 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.1.1",
+    "@mui/material": "^5.13.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.45.0"
+    "react-hook-form": "^7.45.0",
+    "yup": "^1.2.0",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@hookform/devtools": "^4.3.1",
