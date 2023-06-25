@@ -1,5 +1,6 @@
 import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useEffect } from "react";
 
 type FormValues = {
   username: string;
@@ -43,13 +44,23 @@ export const YouTubeForm = () => {
     watch,
     getValues,
     setValue,
+    reset,
   } = form;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
   });
-  const { errors, isDirty, touchedFields, isValid, dirtyFields, isSubmitted } =
-    formState;
+  const {
+    errors,
+    isDirty,
+    touchedFields,
+    isValid,
+    dirtyFields,
+    isSubmitted,
+    isSubmitting,
+    isSubmitSuccessful,
+    submitCount,
+  } = formState;
 
   const onSubmit = (data: FormValues) => {
     console.log("formData", data);
@@ -82,6 +93,9 @@ export const YouTubeForm = () => {
     });
   };
 
+  //isSubmitting it true while submit form and automatically become false after successfull submit
+  //isSubmit is one time submit
+  console.log({ isSubmitted, isSubmitting, isSubmitSuccessful, submitCount });
   // console.log({ isDirty, touchedFields, isValid, dirtyFields, isSubmitted });
 
   //watch is used to mointer changes of field;
@@ -102,6 +116,12 @@ export const YouTubeForm = () => {
 
   //   return () => subscription.unsubscribe();
   // }, [watch]);
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   renderCount++;
   return (
@@ -287,7 +307,7 @@ export const YouTubeForm = () => {
           <p className="error">{errors.dob?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid}>Submit</button>
+        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
         <button type="button" onClick={handleGetValue}>
           Get Value
         </button>
@@ -296,7 +316,7 @@ export const YouTubeForm = () => {
         </button>
       </form>
 
-      <DevTool control={control} />
+      {/* <DevTool control={control} /> */}
     </div>
   );
 };
