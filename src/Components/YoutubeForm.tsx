@@ -34,7 +34,7 @@ export const YouTubeForm = () => {
       age: 30,
       dob: new Date(),
     },
-    mode: "onTouched",
+    mode: "onTouched", //"onSubmit" default,"onTouched", "all" = onChange and onBlur, onBlur, onChange = performance issue
   });
 
   const {
@@ -46,6 +46,7 @@ export const YouTubeForm = () => {
     getValues,
     setValue,
     reset,
+    trigger, //manually trigger form validation
   } = form;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
@@ -321,6 +322,15 @@ export const YouTubeForm = () => {
         </button>
         <button type="button" onClick={handleSetValue}>
           Set Value
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            //trigger(); //all form trigger
+            trigger("channel"); //specific field validatoin trigger
+          }}
+        >
+          Trigger Validation
         </button>
       </form>
 
