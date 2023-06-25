@@ -23,7 +23,7 @@ export const YouTubeForm = () => {
     defaultValues: {
       username: "aamir",
       email: "aamir@gmail.com",
-      channel: "test",
+      channel: "",
       social: {
         twitter: "",
         facebook: "",
@@ -35,7 +35,15 @@ export const YouTubeForm = () => {
     },
   });
 
-  const { register, control, handleSubmit, formState, watch, getValues } = form;
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState,
+    watch,
+    getValues,
+    setValue,
+  } = form;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
@@ -54,6 +62,18 @@ export const YouTubeForm = () => {
     console.log(getValues("social.facebook"));
     console.log(getValues("phNumbers.0"));
     console.log(getValues(["username", "email"]));
+  };
+
+  const handleSetValue = () => {
+    //set value of field, it does not cause to make field dirty,touched and validated
+    //setValue("channel", "CodexKing");
+
+    //update state
+    setValue("channel", "CodexKing", {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
   };
 
   //watch is used to mointer changes of field;
@@ -261,6 +281,9 @@ export const YouTubeForm = () => {
         <button>Submit</button>
         <button type="button" onClick={handleGetValue}>
           Get Value
+        </button>
+        <button type="button" onClick={handleSetValue}>
+          Set Value
         </button>
       </form>
 
