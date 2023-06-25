@@ -35,7 +35,7 @@ export const YouTubeForm = () => {
     },
   });
 
-  const { register, control, handleSubmit, formState, watch } = form;
+  const { register, control, handleSubmit, formState, watch, getValues } = form;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
@@ -44,6 +44,16 @@ export const YouTubeForm = () => {
 
   const onSubmit = (data: FormValues) => {
     console.log("formData", data);
+  };
+
+  const handleGetValue = () => {
+    //get entire form value
+    console.log(getValues());
+    //get specific value;
+    console.log(getValues("social"));
+    console.log(getValues("social.facebook"));
+    console.log(getValues("phNumbers.0"));
+    console.log(getValues(["username", "email"]));
   };
 
   //watch is used to mointer changes of field;
@@ -249,6 +259,9 @@ export const YouTubeForm = () => {
         </div>
 
         <button>Submit</button>
+        <button type="button" onClick={handleGetValue}>
+          Get Value
+        </button>
       </form>
 
       <DevTool control={control} />
