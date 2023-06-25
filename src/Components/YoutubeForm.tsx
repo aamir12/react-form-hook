@@ -48,7 +48,8 @@ export const YouTubeForm = () => {
     name: "phNumbers",
     control,
   });
-  const { errors } = formState;
+  const { errors, isDirty, touchedFields, isValid, dirtyFields, isSubmitted } =
+    formState;
 
   const onSubmit = (data: FormValues) => {
     console.log("formData", data);
@@ -75,6 +76,8 @@ export const YouTubeForm = () => {
       shouldValidate: true,
     });
   };
+
+  console.log({ isDirty, touchedFields, isValid, dirtyFields, isSubmitted });
 
   //watch is used to mointer changes of field;
   //it causes component re-render
@@ -172,6 +175,7 @@ export const YouTubeForm = () => {
             type="text"
             id="twitter"
             {...register("social.twitter", {
+              disabled: watch("channel") === "",
               required: "Twitter link is required",
             })}
           />
