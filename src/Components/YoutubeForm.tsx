@@ -1,5 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useEffect } from "react";
 type FormValues = {
   username: string;
   email: string;
@@ -48,16 +49,29 @@ export const YouTubeForm = () => {
   //watch is used to mointer changes of field;
   //it causes component re-render
   //it watches the changes of username
-  const watchUsername = watch("username");
+  //const watchUsername = watch("username");
   //we can also watch multiple fields
-  const watchUsernameEmail = watch(["username", "email"]);
+  //const watchUsernameEmail = watch(["username", "email"]);
+
+  //Entire form watch
+  //const watchForm = watch();
+
+  //it does not cause re-render
+  useEffect(() => {
+    const subscription = watch((value) => {
+      console.log(value);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   renderCount++;
   return (
     <div>
       <h1>YouTube Form {renderCount / 2}</h1>
-      <h3>{watchUsername}</h3>
-      <h3>{watchUsernameEmail}</h3>
+      {/* <h3>{watchUsername}</h3> */}
+      {/* <h3>{watchUsernameEmail}</h3> */}
+      {/* {JSON.stringify(watchForm)} */}
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="form-control">
