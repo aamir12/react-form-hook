@@ -34,6 +34,7 @@ export const YouTubeForm = () => {
       age: 30,
       dob: new Date(),
     },
+    mode: "onTouched",
   });
 
   const {
@@ -172,6 +173,13 @@ export const YouTubeForm = () => {
                     "Bad domain email id is not alloweds"
                   );
                 },
+                uniqeEmail: async (value) => {
+                  const response = await fetch(
+                    `https://jsonplaceholder.typicode.com/users?email=${value}`
+                  );
+                  const data = await response.json();
+                  return data.length === 0 || "Email already exist.";
+                },
               },
             })}
           />
@@ -307,7 +315,7 @@ export const YouTubeForm = () => {
           <p className="error">{errors.dob?.message}</p>
         </div>
 
-        <button disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
+        <button disabled={isSubmitting}>Submit</button>
         <button type="button" onClick={handleGetValue}>
           Get Value
         </button>
