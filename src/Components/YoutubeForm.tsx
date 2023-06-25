@@ -16,6 +16,7 @@ type FormValues = {
   dob: Date;
 };
 
+let renderCount = 0;
 export const YouTubeForm = () => {
   const form = useForm<FormValues>({
     defaultValues: {
@@ -33,20 +34,30 @@ export const YouTubeForm = () => {
     },
   });
 
-  const { register, control, handleSubmit, formState } = form;
+  const { register, control, handleSubmit, formState, watch } = form;
   const { fields, append, remove } = useFieldArray({
     name: "phNumbers",
     control,
   });
   const { errors } = formState;
 
-  // console.log(errors);
   const onSubmit = (data: FormValues) => {
     console.log("formData", data);
   };
+
+  //watch is used to mointer changes of field;
+  //it causes component re-render
+  //it watches the changes of username
+  const watchUsername = watch("username");
+  //we can also watch multiple fields
+  const watchUsernameEmail = watch(["username", "email"]);
+
+  renderCount++;
   return (
     <div>
-      <h1>YouTube Form</h1>
+      <h1>YouTube Form {renderCount / 2}</h1>
+      <h3>{watchUsername}</h3>
+      <h3>{watchUsernameEmail}</h3>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className="form-control">
