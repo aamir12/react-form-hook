@@ -12,13 +12,11 @@ type FormValues = {
   phNumbers: {
     number: string;
   }[];
+  age: number;
+  dob: Date;
 };
 
 export const YouTubeForm = () => {
-  //   const form = useForm<FormValues>();
-
-  //set Default value; we don't need to specify type "FormValues" it is optional while setting default value
-
   const form = useForm<FormValues>({
     defaultValues: {
       username: "aamir",
@@ -30,6 +28,8 @@ export const YouTubeForm = () => {
       },
       phoneNumbers: ["", ""],
       phNumbers: [{ number: "" }],
+      age: 30,
+      dob: new Date(),
     },
   });
 
@@ -40,7 +40,7 @@ export const YouTubeForm = () => {
   });
   const { errors } = formState;
 
-  console.log(errors);
+  // console.log(errors);
   const onSubmit = (data: FormValues) => {
     console.log("formData", data);
   };
@@ -188,6 +188,40 @@ export const YouTubeForm = () => {
         <button type="button" onClick={() => append({ number: "" })}>
           Add number
         </button>
+
+        <div className="form-control">
+          <label htmlFor="age">Age</label>
+          <input
+            type="number"
+            id="age"
+            {...register("age", {
+              valueAsNumber: true,
+              required: {
+                value: true,
+                message: "Age name is required",
+              },
+            })}
+          />
+
+          <p className="error">{errors.age?.message}</p>
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="dob">Date of birth</label>
+          <input
+            type="date"
+            id="dob"
+            {...register("dob", {
+              valueAsDate: true,
+              required: {
+                value: true,
+                message: "Date of birth is required",
+              },
+            })}
+          />
+
+          <p className="error">{errors.dob?.message}</p>
+        </div>
 
         <button>Submit</button>
       </form>
