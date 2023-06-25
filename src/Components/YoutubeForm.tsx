@@ -1,4 +1,4 @@
-import { useFieldArray, useForm } from "react-hook-form";
+import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect } from "react";
 type FormValues = {
@@ -55,6 +55,11 @@ export const YouTubeForm = () => {
     console.log("formData", data);
   };
 
+  const onError = (errors: FieldErrors<FormValues>) => {
+    //add logic for custom errors
+    console.log("Form Errors", errors);
+  };
+
   const handleGetValue = () => {
     //get entire form value
     console.log(getValues());
@@ -77,7 +82,7 @@ export const YouTubeForm = () => {
     });
   };
 
-  console.log({ isDirty, touchedFields, isValid, dirtyFields, isSubmitted });
+  // console.log({ isDirty, touchedFields, isValid, dirtyFields, isSubmitted });
 
   //watch is used to mointer changes of field;
   //it causes component re-render
@@ -106,7 +111,7 @@ export const YouTubeForm = () => {
       {/* <h3>{watchUsernameEmail}</h3> */}
       {/* {JSON.stringify(watchForm)} */}
 
-      <form onSubmit={handleSubmit(onSubmit)} noValidate>
+      <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
         <div className="form-control">
           <label htmlFor="username">Username</label>
           <input
