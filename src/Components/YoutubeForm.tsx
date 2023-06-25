@@ -1,6 +1,6 @@
 import { FieldErrors, useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import { useEffect } from "react";
+
 type FormValues = {
   username: string;
   email: string;
